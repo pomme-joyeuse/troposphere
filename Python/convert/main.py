@@ -1,13 +1,15 @@
+import tkinter as tk
+from tkinter import messagebox
 from video import*
 from url_audio import*
 from cleanning import*
 from func import*
 from move import*
-from tkinter import*
 from explorer import*
 from text import*
 import os
 import yt_dlp
+from pathlib import Path
 
 def quit():
 	MsgBox = messagebox.askquestion("Want to quit?", "Quit?")
@@ -27,12 +29,19 @@ def videooo():
 
     # ✅ Options yt-dlp pour ne télécharger que la vidéo du lien (pas la playlist)
     ydl_opts = {
-        'outtmpl': f'{destination}/%(title)s.%(ext)s',   # Nom du fichier final
-        'format': 'bestvideo+bestaudio/best',            # Vidéo + audio
-        'merge_output_format': 'mp4',                    # Fusion en MP4
-        'noplaylist': True,                              # ⚠️ Ne télécharge pas la playlist entière
-        'playlist_items': '1',                           # ⚠️ Télécharge seulement la première vidéo du lien
-        'quiet': False
+        'outtmpl': f'{destination}/%(title)s.%(ext)s',
+        'format': 'bestvideo+bestaudio/best',
+        'merge_output_format': 'mp3',
+        'noplaylist': True,
+        'quiet': False,
+
+        # ✅ IMPORTANT FIX YT-DLP
+        'cookiesfrombrowser': ('chrome', None, None, 'Noé'),
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android']
+            }
+        }
     }
 
     try:
@@ -56,15 +65,22 @@ def audio_mp3():
         return
 
     ydl_opts = {
-        'format': 'bestaudio/best',
         'outtmpl': f'{destination}/%(title)s.%(ext)s',
+        'format': 'bestaudio/best',
+        'noplaylist': True,
         'quiet': False,
+
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'noplaylist': True
+
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android']
+            }
+        }
     }
 
     try:
@@ -81,7 +97,7 @@ def audio_mp3():
 
 
 fenetre =Tk()
-fenetre.title = "YouTube url processing"
+fenetre.title("YouTube url processing")
 canvas =Canvas(fenetre, width=700, height=140, background="olive drab")
 photo = PhotoImage(file="image/YouTube.PNG")
 canvas.create_image(120,30, anchor=NW, image=photo)
