@@ -1,7 +1,7 @@
 # troposphere
 Python 
 La structure de ce dépôt ressemble à ça pour l'instant (17.06.2026) :
-
+````markdown
  🐙 troposphere
 ├── 📂 HTML                  # Dossier factice
 ├── 📂 Python/convert       # Dossier vers python, images,etc...
@@ -28,3 +28,9 @@ La structure de ce dépôt ressemble à ça pour l'instant (17.06.2026) :
 ├── tube.py                 # Ancienne fonction url_audio
 ├── url_audio.py            # fonction actuelle pour prendre un url youtube et en extraire l'audio .mp3
 └── video.py                # fonction actuelle pour prendre un url youtube et en extraire la vidéo .mp4 (voir si ça marche encore)
+````
+
+ 🛠️ Prérequis
+
+* Python 3.10 ou supérieur
+* pip
